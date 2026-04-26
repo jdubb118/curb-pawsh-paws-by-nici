@@ -1,0 +1,7 @@
+# Netlify _redirects — per-site overrides go here
+# By default: trailing slash normalization, www → apex (or apex → www, picked per-site)
+
+{{redirects}}
+
+# 404 fallback
+/*    /404.html   404

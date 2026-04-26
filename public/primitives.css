@@ -1,0 +1,121 @@
+/* Curb base primitives — invisible quality floor.
+   - Reset (modern, conservative)
+   - Layout primitives only (.wrap, .stack, .cluster, .grid, .center)
+   - A11y essentials (skip-link, focus rings, prefers-reduced-motion)
+   - Mobile-first; clamp-based fluidity available for per-site styles to use
+   NO color tokens, NO typography choices, NO component styles.
+   curb-build picks all of that per-site in styles.css. */
+
+/* ─── Reset ─── */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; line-height: 1.5; }
+body { min-height: 100dvh; -webkit-font-smoothing: antialiased; }
+img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
+input, button, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: none; }
+a { color: inherit; }
+a:not([class]) { text-decoration-skip-ink: auto; }
+p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
+ul[role="list"], ol[role="list"] { list-style: none; }
+
+/* ─── Skip link (a11y) ─── */
+.skip-link {
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: -100px;
+  padding: 0.75rem 1rem;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  z-index: 1000;
+}
+.skip-link:focus {
+  inset-block-start: 0;
+}
+
+/* ─── Visible focus rings (a11y) ─── */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* ─── Reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Layout primitives ─── */
+
+/* Container — bounded, padded, centered */
+.wrap {
+  width: 100%;
+  max-width: var(--wrap-max, 1200px);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+}
+
+/* Stack — vertical rhythm with consistent spacing */
+.stack > * + * {
+  margin-block-start: var(--stack-gap, 1rem);
+}
+
+/* Cluster — horizontal flow that wraps */
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cluster-gap, 1rem);
+  align-items: var(--cluster-align, center);
+}
+
+/* Grid — responsive, intrinsic */
+.grid {
+  display: grid;
+  gap: var(--grid-gap, 1rem);
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(var(--grid-min, 16rem), 100%), 1fr)
+  );
+}
+
+/* Center — both axes, generous spacing */
+.center {
+  display: grid;
+  place-items: center;
+  min-block-size: var(--center-min, 50dvh);
+  padding: clamp(1rem, 5vw, 3rem);
+}
+
+/* Two-column split that stacks below threshold */
+.split {
+  display: grid;
+  gap: var(--split-gap, 2rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 48em) {
+  .split {
+    grid-template-columns: var(--split-cols, 1fr 1fr);
+  }
+}
+
+/* ─── Sticky CTA support — per-site can opt in ─── */
+.sticky-cta {
+  position: sticky;
+  inset-block-end: 0;
+  inset-inline: 0;
+  z-index: 50;
+}
+
+/* ─── Visually hidden (screen readers only) ─── */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
