@@ -447,7 +447,7 @@ header nav {
 .trust-icon svg {
   width: 28px;
   height: 28px;
-  stroke: var(--color-lavender-deep);
+  stroke: var(--color-ink);     /* black line-art — matches brand illustration style */
   stroke-width: 2.5;
   fill: none;
   stroke-linecap: round;
