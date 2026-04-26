@@ -514,6 +514,9 @@
       el.textContent = new Date().getFullYear();
     });
 
+    // Only activate reveal animations if JS is available (progressive enhancement)
+    document.documentElement.classList.add('js-ready');
+
     // Scroll reveal — [data-reveal] elements fade in on enter
     const observer = new IntersectionObserver(
       (entries) => entries.forEach(e => {
