@@ -126,11 +126,11 @@ a { text-decoration: none; }
 
 .btn-primary {
   background: var(--color-accent);
-  color: var(--color-white);
+  color: var(--color-charcoal);  /* dark on coral = 5.56:1 contrast — WCAG AA */
 }
 .btn-primary:hover {
   background: var(--color-accent-dark);
-  color: var(--color-white);
+  color: var(--color-charcoal);
 }
 .btn-primary:focus-visible {
   outline: 2px solid var(--color-accent);
@@ -832,7 +832,7 @@ header nav {
   gap: 0.5rem;
   padding: 0.875rem 1.25rem;
   background: var(--color-accent);
-  color: var(--color-white);
+  color: var(--color-charcoal);  /* dark on coral = 5.56:1 WCAG AA */
   border-radius: 50px;
   font-family: var(--font-body);
   font-weight: 700;
@@ -844,6 +844,7 @@ header nav {
 
 .sticky-call-btn:hover {
   background: var(--color-accent-dark);
+  color: var(--color-charcoal);
 }
 
 /* ─── RESPONSIVE TWEAKS ─── */
